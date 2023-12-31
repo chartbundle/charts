@@ -1,0 +1,206 @@
+MAP
+NAME "Charts"
+STATUS ON
+SIZE 400 300
+EXTENT -180 -90 179 90
+UNITS DD
+IMAGECOLOR 255 255 255
+CONFIG  "MS_ERRORFILE" "stderr"
+CONFIG "ON_MISSING_DATA" "LOG"
+
+DEBUG 0
+PROJECTION
+	"init=epsg:4326"
+END
+FONTSET "/home/mapserv/mapfiles/fonts.lst"
+SYMBOL
+  NAME 'circle'
+  TYPE ELLIPSE
+  FILLED TRUE
+  POINTS 1 1 END
+END
+
+
+
+WEB
+METADATA
+"ows_enable_request"   "*"
+
+        "wms_title"     "Charts WMS"
+        "wms_onlineresource"    "http://wms.example.com/maps_basegrid"
+
+        "wms_srs"       "EPSG:4326 EPSG:53004 EPSG:9804 EPSG:3785 EPSG:3857"
+
+END
+	MINSCALE 1
+	MAXSCALE 1000000000
+	IMAGEPATH "/var/www/ms_tmp/"
+	IMAGEURL "/ms_tmp/"
+	LOG "/var/log/mapserv/mapserv.log"
+
+END
+
+OUTPUTFORMAT
+    NAME 'AGGA'
+    DRIVER AGG/PNG
+    IMAGEMODE RGBA
+    TRANSPARENT ON
+END
+
+
+#OUTPUTFORMAT
+#  NAME PNG
+#  DRIVER "GD/PNG"
+#  MIMETYPE "image/png"
+#  IMAGEMODE PC256
+#  EXTENSION "png"
+#  TRANSPARENT ON
+#END
+
+LAYER
+        NAME basemap
+        TYPE polygon
+        DATA /home/mapserv/basemap/basemap2
+        STATUS ON
+        CLASS
+        OUTLINECOLOR 0 0 0
+	BACKGROUNDCOLOR 255 255 200
+	COLOR 200 200 200
+        END
+END
+
+
+LAYER  
+        NAME grids_subpoly
+        GROUP grids
+        TYPE line
+        DATA /home/mapserv/grid/poly_subgrid/poly_subgrid
+        FILTER ( '[SUFFIX]' = 'A' or '[SUFFIX]' = 'D' )
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        CLASS
+         STYLE
+        WIDTH 3
+        PATTERN 4 12 END
+        COLOR 116 245 40
+        OPACITY 50
+        END
+        END
+END
+
+
+LAYER
+        NAME grids_poly
+        GROUP grids
+        TYPE line
+        DATA /home/mapserv/grid/poly_grid/poly_grid
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        CLASS
+	STYLE 
+        WIDTH 4
+        COLOR 116 245 40
+	END
+
+        END
+END
+
+LAYER  
+        NAME grids_point
+        GROUP grids
+        PROCESSING "LABEL_NO_CLIP=ON"
+        TYPE point
+        DATA /home/mapserv/grid/point_grid/point_grid
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        CLASS
+        SYMBOL 0
+        TEXT '[CONVENTION]_[CELL]'
+        LABEL
+        WRAP '_'
+        ALIGN center
+          COLOR  50 50 50
+          OUTLINECOLOR 255 255 255
+          FONT "sansb"
+          TYPE truetype
+          SIZE 16
+          ANGLE 0
+          POSITION CC
+          PARTIALS true
+        END
+
+        END
+END
+
+LAYER
+        NAME gridst_subpoly
+        GROUP gridst
+        TYPE polygon
+        DATA /home/mapserv/grid/poly_subgrid/poly_subgrid
+        FILTER ( '[SUFFIX]' = 'A' or '[SUFFIX]' = 'D' )
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        OPACITY 60
+        CLASS
+         STYLE
+        WIDTH 3
+        PATTERN 2 12 END
+        OUTLINECOLOR 116 245 40
+        END
+
+        END
+END
+
+LAYER
+        NAME gridst_poly
+        GROUP gridst
+        TYPE polygon
+        DATA /home/mapserv/grid/poly_grid/poly_grid
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        OPACITY 60
+        CLASS
+	STYLE
+        WIDTH 6 
+	END
+        OUTLINECOLOR 116 245 40
+
+        END
+END
+
+
+LAYER
+        NAME gridst_point
+        GROUP gridst
+        PROCESSING "LABEL_NO_CLIP=ON"
+        TYPE point
+        DATA /home/mapserv/grid/point_grid/point_grid
+        STATUS ON
+        MAXSCALEDENOM 4000000
+        OPACITY 55
+        CLASS
+        SYMBOL 0
+        TEXT '[CONVENTION]_[CELL]'
+        LABEL
+        WRAP '_'
+        ALIGN center
+          COLOR  10 10 10
+          OUTLINECOLOR 255 255 255
+          FONT "sansb"
+          TYPE truetype
+          SIZE 28
+          ANGLE 0
+          POSITION CC
+          PARTIALS true
+        END
+
+        END
+END
+
+
+
+
+
+
+
+END

@@ -1,0 +1,216 @@
+MAP
+NAME "Charts"
+STATUS ON
+SIZE 400 300
+EXTENT -180 -90 179 90
+UNITS DD
+IMAGECOLOR 255 255 255
+PROJECTION
+	"init=epsg:4326"
+END
+FONTSET "/home/mapserv/mapfiles/fonts.lst"
+SYMBOL
+  NAME 'circle'
+  TYPE ELLIPSE
+  FILLED TRUE
+  POINTS 1 1 END
+END
+
+
+
+WEB
+METADATA
+"ows_enable_request"   "*"
+
+        "wms_title"     "Charts WMS"
+        "wms_onlineresource"    "http://wms.example.com/map_4326"
+
+        "wms_srs"       "EPSG:4326"
+
+END
+	MINSCALE 1
+	MAXSCALE 1000000000
+	IMAGEPATH "/var/www/ms_tmp/"
+	IMAGEURL "/ms_tmp/"
+	LOG "/var/log/mapserv/mapserv.log"
+
+END
+OUTPUTFORMAT
+    NAME 'AGG_Q'
+    DRIVER AGG/PNG
+    IMAGEMODE RGBA
+    FORMATOPTION "QUANTIZE_FORCE=ON"
+    FORMATOPTION "QUANTIZE_DITHER=OFF"
+    FORMATOPTION "QUANTIZE_COLORS=256"
+    TRANSPARENT ON
+END
+
+OUTPUTFORMAT
+  NAME "jpeg"
+  DRIVER AGG/JPEG
+  MIMETYPE "image/jpeg"
+  IMAGEMODE RGB
+  EXTENSION "jpg"
+END
+
+
+
+
+LAYER
+        NAME basemap
+        TYPE polygon
+        DATA /home/mapserv/basemap/basemap2
+        STATUS ON
+        CLASS
+        OUTLINECOLOR 0 0 0
+	BACKGROUNDCOLOR 255 255 200
+	COLOR 200 200 200
+        END
+END
+
+LAYER
+NAME "enra"
+METADATA
+"wms_title" "US Enroute Area IFR"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+TILEINDEX "/home/mapserv/charts/index/enra_4326_index.shp"
+END
+
+LAYER
+NAME "enrh"
+METADATA
+"wms_title" "US Enroute High IFR"
+END
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+
+TILEINDEX "/home/mapserv/charts/index/enrh_4326_index.shp"
+END
+
+
+LAYER
+NAME "enrl"
+METADATA
+"wms_title" "US Enroute Low IFR"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+TILEINDEX "/home/mapserv/charts/index/enrl_4326_index.shp"
+END
+
+
+
+LAYER
+NAME "sec"
+METADATA
+"wms_title" "US Sectional Charts"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+TILEINDEX "/home/mapserv/charts/index/sec_4326_index.shp"
+END
+
+LAYER
+NAME "tac"
+METADATA
+"wms_title" "Terminal Area Charts"
+END
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+
+TILEINDEX "/home/mapserv/charts/index/tac_4326_index.shp"
+END
+
+LAYER
+NAME "hel"
+METADATA
+"wms_title" "Helicopter Charts"
+END
+TYPE RASTER
+STATUS ON
+TYPE RASTER
+PROJECTION
+   "init=epsg:4326"
+END
+PROCESSING "RESAMPLE=AVERAGE"
+
+TILEINDEX "/home/mapserv/charts/index/hel_4326_index.shp"
+END
+
+
+
+
+LAYER
+        NAME grids_poly
+	GROUP grids
+        TYPE polygon
+        DATA /home/mapserv/grid/poly_grid/poly_grid
+        STATUS ON
+	MAXSCALEDENOM 4000000
+        CLASS
+	SYMBOL 'circle'
+	SIZE 2
+        OUTLINECOLOR 131 245 44
+
+        END
+END
+LAYER  
+        NAME grids_point
+        GROUP grids
+	PROCESSING "LABEL_NO_CLIP=ON"
+        TYPE point
+        DATA /home/mapserv/grid/point_grid/point_grid
+        STATUS ON
+	MAXSCALEDENOM 4000000
+        CLASS
+	SYMBOL 0
+        TEXT '[CONVENTION]_[CELL]'
+        LABEL
+        WRAP '_'
+        ALIGN center
+          COLOR  50 50 50
+          OUTLINECOLOR 255 255 255
+          FONT "sansb"
+          TYPE truetype
+          SIZE 12
+          ANGLE 0
+          POSITION CC
+          PARTIALS true
+        END
+
+        END
+END
+
+
+
+
+
+END

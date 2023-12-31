@@ -1,0 +1,526 @@
+services:
+  demo:
+  kml:
+  tms:
+    # needs no arguments
+  wms:
+    srs: ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+    image_formats: ['image/jpeg', 'image/png', 'image/png24']
+    md:
+      # metadata used in capabilities documents
+      title: Chart Proxy
+      abstract: Aviation Charts
+      online_resource: http://www.example.com/charts/
+      access_constraints:
+        This service is intended for non-navigation use only.
+      fees: 'None'
+
+layers:
+  - name: osm
+    title: OSM
+    sources: [osm_cache]
+  - name: sec
+    title: 
+    sources: [sec_cache]
+  - name: secdebug
+    title: Charts
+    sources: [secdebug_cache]
+  - name: sec_3857
+    title: Charts
+    sources: [sec_3857_cache]
+  - name: secgrids
+    title: Charts
+    sources: [secgrids_cache]
+  - name: sec_4326
+    title:  4326
+    sources: [sec_4326_cache]
+  - name: wac
+    title: 
+    sources: [sec_cache]
+  - name: wac_3857
+    title: Charts
+    sources: [sec_3857_cache]
+  - name: wacgrids
+    title: Charts
+    sources: [secgrids_cache]
+  - name: wac_4326
+    title:  4326
+    sources: [sec_4326_cache]
+  - name: tac
+    title: 
+    sources: [tac_cache]
+  - name: tac_3857
+    title: Charts
+    sources: [tac_3857_cache]
+  - name: tacgrids
+    title: 
+    sources: [tacgrids_cache]
+  - name: tac_4326
+    title:  4326
+    sources: [tac_4326_cache]
+  - name: hel
+    title: Charts
+    sources: [hel_cache]
+  - name: hel_3857
+    title: Charts
+    sources: [hel_3857_cache]
+  - name: helgrids
+    title: Charts
+    sources: [helgrids_cache]
+  - name: hel_4326
+    title:  4326
+    sources: [hel_4326_cache]
+  - name: enrl
+    title: 
+    sources: [enrl_cache]
+  - name: enrl_3857
+    title: Charts
+    sources: [enrl_3857_cache]
+  - name: enrl_4326
+    title:  4326
+    sources: [enrl_4326_cache]
+  - name: enrh
+    title: 
+    sources: [enrh_cache]
+  - name: enrh_3857
+    title: Charts
+    sources: [enrh_3857_cache]
+  - name: enrh_4326
+    title:  4326
+    sources: [enrh_4326_cache]
+  - name: enra
+    title: 
+    sources: [enra_cache]
+  - name: enra_3857
+    title: Charts
+    sources: [enra_3857_cache]
+  - name: enra_4326
+    title:  4326
+    sources: [enra_4326_cache]
+  - name: grids
+    title: 
+    sources: [grids_cache]
+  - name: grids_4326
+    title:  4326
+    sources: [grids_4326_cache]
+
+
+  - name: gridst
+    title: Charts
+    sources: [gridst_cache]
+  - name: gridsb_4326
+    title: Charts
+    sources: [grids_4326_cache]
+  - name: basemap
+    title: Charts
+    sources: [basemap_cache]
+  - name: basemap_4326
+    title:  4326
+    sources: [basemap_4326_cache]
+
+
+
+caches:
+  osm_cache:
+    sources: [osm_tiles]
+    format: image/png
+  sec_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [sec_wms]
+  secdebug_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [secdebug_wms]
+  sec_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [sec_3857_wms]
+  secgrids_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [sec_wms,grids_wms]
+
+  sec_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [sec_4326_wms]
+
+
+  tac_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [tac_wms]
+  tac_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [tac_3857_wms]
+
+
+  tacgrids_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [tac_wms,grids_wms]
+
+  tac_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [tac_4326_wms]
+
+  hel_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [hel_wms]
+  hel_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [hel_3857_wms]
+
+
+  helgrids_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [hel_wms,grids_wms]
+  hel_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [hel_4326_wms]
+
+  enrl_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enrl_wms]
+  enrl_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enrl_3857_wms]
+
+
+  enrl_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [enrl_4326_wms]
+  enrh_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enrh_wms]
+  enrh_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enrh_3857_wms]
+
+  enrh_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [enrh_4326_wms]
+  enra_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enra_wms]
+  enra_3857_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [enra_3857_wms]
+
+
+  enra_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [enra_4326_wms]
+
+  basemap_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [basemap_wms]
+
+  basemap_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [basemap_4326_wms]
+
+  grids_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [grids_wms]
+
+  grids_4326_cache:
+    grids: [global_geodetic_sqrt2]
+    sources: [grids_4326_wms]
+
+
+  gridst_cache:
+    grids: [GLOBAL_MERCATOR, global_3857]
+    sources: [gridst_wms]
+    image:
+       mode: RGBA
+       colors: 0
+       transparent: true
+
+sources:
+
+  osm_tiles:
+   type: tile
+   url: http://c.tile.openstreetmap.org/%(tms_path)s.%(format)s
+   grid: osm_grid
+
+  sec_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    req:
+      url: http://mapserv.example.com/maps_sec
+      layers: basemap,sec
+      concurrent_requests: 4
+  secdebug_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    req:
+      url: http://mapserv.example.com/maps_secdebug
+      layers: basemap,sec
+      concurrent_requests: 4
+  sec_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: sec
+      concurrent_requests: 4
+
+  sec_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: sec
+
+  tac_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_tac
+      layers: basemap,tac
+      concurrent_requests: 4
+
+  tac_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+       transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: tac
+      concurrent_requests: 4
+
+  tac_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: tac
+
+  hel_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_hel
+      layers: basemap,hel
+      concurrent_requests: 4
+
+  hel_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: hel
+      concurrent_requests: 4
+
+  hel_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: hel
+
+
+  enrl_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_enrl
+      layers: basemap,enrl
+      concurrent_requests: 4
+
+  enrl_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: enrl
+      concurrent_requests: 4
+
+  enrl_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: enrl
+
+  enrh_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_enrh
+      layers: basemap,enrh
+      concurrent_requests: 4
+
+  enrh_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: enrh
+      concurrent_requests: 4
+
+
+
+  enrh_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: enrh
+
+  enra_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_enra
+      layers: basemap,enra
+      concurrent_requests: 4
+
+  enra_3857_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/mapserv
+      layers: enra
+      concurrent_requests: 4
+
+
+
+  enra_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_4326
+      layers: enra
+
+  basemap_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_basegrid
+      layers: basemap
+      concurrent_requests: 4
+
+  basemap_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_basegrid
+      layers: basemap
+
+
+  grids_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_basegrid
+      layers: grids
+      concurrent_requests: 4
+
+  grids_4326_wms:
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    image:
+      transparent: true
+    req:
+      url: http://mapserv.example.com/maps_basegrid
+      layers: grids
+
+
+
+  gridst_wms:
+
+    type: wms
+    supported_srs: ['EPSG:3857', 'EPSG:4326']
+    req:
+      url: http://mapserv.example.com/maps_grids
+      layers: gridst
+      concurrent_requests: 4
+    image:
+       mode: RGBA
+       colors: 0
+       transparent: true
+
+
+
+
+grids:
+  global_geodetic_sqrt2:
+    base: GLOBAL_GEODETIC
+    res_factor: 'sqrt2'
+  global_3857:
+    base: GLOBAL_MERCATOR
+    srs: 'EPSG:3857'
+  osm_grid:
+    srs: EPSG:3857
+    origin: nw
+
+
+
+
+globals:
+  cache:
+    # where to store the cached images
+    base_dir: '/home/wms/cache/chart'
+    # where to store lockfiles
+    lock_dir: '/home/wms/cache/chart/locks'
+  #   # request x*y tiles in one step
+  #   meta_size: [4, 4]
+  #   # add a buffer on all sides (in pixel) when requesting
+  #   # new images
+    meta_buffer: 0
+
+
+  # image/transformation options
+  image:
+      resampling_method: nearest
+      # resampling_method: bilinear
+      # resampling_method: bicubic
+  #     jpeg_quality: 90
+  #     # stretch cached images by this factor before
+  #     # using the next level
+  #     stretch_factor: 1.15
+  #     # shrink cached images up to this factor before
+  #     # returning an empty image (for the first level)
+  #     max_shrink_factor: 4.0
+      formats:
+          png24:
+             format: image/png24
+             mode: RGBA
+             colors: 0
+             transparent: true
+
