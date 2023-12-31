@@ -1,6 +1,0 @@
-# HSTS 1.0 Known Hosts database for GNU Wget.
-# Edit at your own risk.
-# <hostname>	<port>	<incl. subdomains>	<created>	<max-age>
-aeronav.faa.gov	0	0	1681419535	31536000
-www.faa.gov	0	1	1676858476	31536000
-svn.osgeo.org	0	0	1517248782	15768000
