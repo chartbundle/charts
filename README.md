@@ -9,3 +9,8 @@ https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/vfr/
 
 https://www.faa.gov/air_traffic/flight_info/aeronav/digital_products/ifr/
 
+
+Almost everything has hardcoded paths.
+
+Apache config files provided for each service in their respective directory.
+
