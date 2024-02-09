@@ -171,6 +171,8 @@ my $sr = Geo::OSR::SpatialReference->new('WKT' => $wkt);
 my $p4 = $sr->ExportToProj4();
 #print $p4."\n";
 my $srout = Geo::OSR::SpatialReference->new('EPSG' => 4326) ; 
+$srout->SetAxisMappingStrategy($Geo::OSR::OAMS_TRADITIONAL_GIS_ORDER);
+
 
 my $reproj = new Geo::OSR::CoordinateTransformation($sr,$srout);
 my $invreproj = new Geo::OSR::CoordinateTransformation($srout,$sr);
@@ -556,7 +558,7 @@ for my $file (@filelist) {
       @da = ();
 }
 # "-wm" $mem
-  print_system "/home/mapserv/bin/local-gdalwarp","-wm",$mem,"-r","cubic",(@gdalopts, @da),
+  print_system "gdalwarp","-wm",$mem,"-r","cubic",(@gdalopts, @da),
   @{$file->{'gdalwarp_opts'}},$file->{'infile'},$file->{'outfile'} ;
   if ($?) { 
       die "gdalwarp: $?";
